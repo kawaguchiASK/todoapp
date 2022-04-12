@@ -1,0 +1,81 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #EEEEEE;
+}
+h3{
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 auto;
+}
+a {
+  color: #00b7ff;
+}
+
+.btn{
+  background-color: #93C47D;
+  color: #ffffff;
+  border: 8px solid #B6D7A8;
+  border-radius: 0.75rem;
+}
+.btn:hover{
+  background-color: #B6D7A8;
+  border: 8px solid #93C47D;
+}
+
+.todo{
+  margin-top: 24px;
+}
+.row{
+  margin: 0px;
+}
+.todo_content{
+  background-color: #ffffff;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.orange{
+  background-color: #F6B26B;
+  max-width: 0;
+  padding: 10px;
+}
+.todo_button{
+  display: flex;
+  color: #ffffff;
+}
+.todo_update{
+  background-color: #A4C2F4;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+}
+.todo_delete{
+  background-color: #F4CCCC;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+
+.modal-content{
+  padding: 24px;
+}
+.modal-add p{
+  padding: 8px;
+  background-color: #EFEFEF;
+  border-radius: 9px;
+  margin-top: 8px;
+}
+.btn-secondary{
+  background-color: #EFEFEF;
+  color: black;
+  border: none;
+  padding: 8px 32px;
+}
+.btn-add{
+  background-color: #7BA7ED;
+  border: none;
+  padding: 8px 32px;
+}
