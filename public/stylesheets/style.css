@@ -2,14 +2,22 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #EEEEEE;
 }
+h2{
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
 h3{
   font-size: 1.25rem;
   font-weight: bold;
-  margin: 0 auto;
+  margin: 0 ;
 }
 h4{
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-bottom: 0px;
+}
+p{
+  margin-bottom: 0;
 }
 a {
   color: #00b7ff;
@@ -26,7 +34,7 @@ ul{
   height: 50px;
 }
 .wrapper{
-  padding: 0 50px;
+  padding: 0 24px;
   height: 100%;
 }
 /*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
@@ -38,7 +46,8 @@ ul{
     width: 50px;
     height:50px;
 	border-radius: 5px;
-  float: right;
+  float: left;
+  z-index: 1000;
 }
 
 /*ボタン内側*/
@@ -51,6 +60,10 @@ ul{
     border-radius: 2px;
 	background: black;
   	width: 45%;
+  }
+
+  .white span{
+    background-color: white;
   }
 
 .openbtn span:nth-of-type(1) {
@@ -85,20 +98,113 @@ ul{
     width: 30%;
 }
 
+#g-nav{
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -120%;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16) ;
+  background-color: #93C47D;
+  z-index: 999;
+  transition: all 0.6s;
+}
+
+#g-nav.panelactive{
+  left: 0;
+}
+.sidemenu{
+  margin-top: 160px;
+  margin-left: 40px;
+  color: white;
+}
+.sidemenu li{
+  margin-top: 16px;
+}
+.sidemenu_cate{
+  font-size: 0.875rem;
+  margin-left: 24px;
+}
+.sidemenu_cate ul li{
+  margin-top: 8px;
+}
 
 .container{
-  padding: 50px;
+  padding: 50px 140px;
 }
 
 .btn-outline-primary{
+  position: fixed;
   background-color: #93C47D;
+  border: 8px solid #93C47D;
   color: #ffffff;
-  border: 8px solid #B6D7A8;
-  border-radius: 0.75rem;
+  border-radius: 25px;
+  bottom: 50px;
+  right: 24px;
 }
 .button_task .btn:hover{
   background-color: #93C47D;
-  border: 8px solid #93C47D;
+  border: 8px solid #B6D7A8;
+}
+
+.todo_title{
+  display: flex;
+  justify-content: space-between;
+}
+.todo_title p{
+  color: #93C47D;
+  font-weight: bold;
+  text-decoration: underline #93C47D;
+  cursor: pointer;
+}
+#items li{
+  position: relative;
+}
+input[type=checkbox] {
+  display:none;
+}
+.check_position{
+    position: absolute;
+    top: 25%;
+    left: -40px;
+}
+.checkbox{
+  position: relative;
+    padding: 5px 30px;
+    cursor: pointer;
+    margin-left: -18px;
+}
+.checkbox:before{
+  width:36px; /* チェックボックスの幅 */
+  height:36px; /* チェックボックスの高さ */
+  left:5px; 
+  border:3px solid #93C47D; /* チェックボックスの枠 */
+  border-radius:  25px; 
+  margin-top:-8px;
+}
+.checkbox:after,.checkbox:before{
+  position:absolute;
+  content:"";
+  top:50%
+}
+.checkbox::after {
+  position: absolute;
+    width: 10px;
+    height: 14px;
+    top: 110%;
+    left: 29%;
+    border-right: 2px solid white;
+    border-bottom: 3px solid white;
+    content: '';
+    margin-top: -7px;
+    opacity: 0;
+    transform: rotate(45deg);
+}
+input[type=checkbox]:checked + .checkbox::before{
+  background-color: #93C47D;
+}
+input[type=checkbox]:checked + .checkbox::after {
+  opacity: 1;
 }
 
 .todo{
@@ -119,15 +225,21 @@ ul{
   display: flex;
   justify-content: space-between;
 }
-.orange{
-  background-color: #F6B26B;
+.category_color{
   max-width: 0;
   padding: 10px;
   position: absolute;
   height: 100%;
   top: 0;
   left: 0;
+  cursor: pointer;
 }
+
+.deadline svg{
+  cursor: pointer;
+  margin-left: 8px;
+}
+
 .todo_button{
   color: #ffffff;
 }
@@ -156,6 +268,40 @@ ul{
   background-color: #EB6D6D;
 }
 
+.srt_hndl{
+  position: absolute;
+  right: 0;
+  padding-left: 100%;
+}
+
+.srt_hndl_line{
+  position: relative;
+	cursor: pointer;
+    width: 50px;
+    height:50px;
+	border-radius: 5px;
+  float: right;
+  margin-right: -50px;
+  margin-top: -50px;
+}
+.srt_hndl_line span{
+  display: inline-block;
+  transition: all .4s;/*アニメーションの設定*/
+  position: absolute;
+  left: 14px;
+  height: 3px;
+  border-radius: 2px;
+background: #B7B7B7;
+  width: 45%;
+}
+.srt_hndl_line span:nth-of-type(1) {
+	top:15px;	
+}
+
+.srt_hndl_line span:nth-of-type(2) {
+	top:23px;
+}
+
 .modal{
   background-color: rgba(0,0,0,0.25);
 }
@@ -178,4 +324,26 @@ ul{
   background-color: #7BA7ED;
   border: none;
   padding: 8px 32px;
+}
+.modal-change ul{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+.category_color_change{
+  width: 36px;
+  height: 36px;
+  border-radius: 25px;
+}
+.orange{
+  background-color: #F6B26B;
+}
+.green{
+  background-color: #93C47D;
+}
+.blue{
+  background-color: #7BA7ED;
+}
+.red{
+  background-color: #EB6D6D;
 }
