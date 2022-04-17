@@ -244,6 +244,40 @@
             </span>
           </li>
 
+          <li>            
+            <div class="check_position">
+              <input  type="checkbox" id="task_complete5" name="task_complete" value="">
+            <label for="task_complete5" class="checkbox"></label>
+            </div><div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color green" name=”category”></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4><output name="taskName" for="create-form"></output></h4></div>
+                    <div class="deadline" name="deadline"><span><svg xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                      <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                    </svg></span></div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" data-delete="犬の散歩をする"  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete" data-delete="犬の散歩をする">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span>
+          </li>
         </ul>
         
 
@@ -295,22 +329,29 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="modal-add">
-            <h3>タスク</h3>
-            <p>JavaScriptのチュートリアル</p>
-          </div>
-          <div class="modal-add">
-            <h3>期限</h3>
-            <p>2022年5月24日</p>
-          </div>
-          <div class="modal-add">
-            <h3>カテゴリ</h3>
-            <p>勉強</p>
-          </div>
+          <form action="">
+            <div class="form-group">
+              <h3>タスク</h3>
+              <input type="text" class="form-control" name="task" id="name">
+            </div>
+            <div class="form-group">
+              <h3>期限</h3>
+              <input type="date" class="form-control" name="deadline" id="deadline">
+            </div>
+            <div class="form-group">
+              <h3>カテゴリ</h3>
+                <select name="category" class="form-control" name="category" id="category"> 
+                  <option value="1">生活</option>
+                  <option value="2">勉強</option>
+                  <option value="3">仕事</option>
+                  <option value="4">趣味</option>
+                </select>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-          <button type="button" class="btn btn-primary btn-add">登録</button>
+          <button type="button" class="btn btn-primary btn-add" data-dismiss="modal" id="create-task">登録</button>
         </div>
       </div>
     </div>
@@ -326,19 +367,28 @@
             <div class="modal-body">
               <div class="modal-add">
                 <h3>タスク</h3>
-                <p>JavaScriptのチュートリアル</p>
+                <input type="text" name="taskName">
               </div>
               <div class="modal-add">
                 <h3>期限</h3>
-                <p>2022年5月24日</p>
+                <input type="datetime-local" name="deadline" >
               </div>
-              <div class="modal-add">
+              <div class="modal-add" name="category_name">
                 <h3>カテゴリ</h3>
-                <p>勉強</p>
+                <select name="category" id="category_select"> 
+                  <option value="category_id_1">生活</option>
+                  <option value="category_id_2">勉強</option>
+                  <option value="category_id_3">仕事</option>
+                  <option value="category_id_4">趣味</option>
+                </select>
               </div>
               <div class="modal-add">
                 <h3>ステータス</h3>
-                <p>進行中</p>
+                <select name="taskStatus" id="task_status"> 
+                  <option value="task_status_1">完了</option>
+                  <option value="task_status_2">作業中</option>
+                  <option value="task_status_3">未実施</option>
+                </select>
               </div>
             </div>
             <div class="modal-footer">
@@ -372,7 +422,30 @@
     myModal.addEventListener('shown.bs.modal', function () {
       myInput.focus()
     })
-    </script> 
+    </script>
+    <script src="../javascripts/index.js"></script>
+    <script>
+      $("#create-task").on("click", async function () {
+        console.log(2);
+        const data = {
+          taskName: $("input[name=task]").val(),
+          deadline: $("input[name=deadline]").val(),
+          category: $("select[name=category]").val(), //ここ
+        };
+        console.log(3)
+        //API実行
+        const response = await httpPost( //多分ここに問題
+          "//" + window.location.host + "/api/tasks",
+          data
+        );
+        console.log(4);
+        
+      //画面reload
+      //  window.location.reload();
+      });
+
+      
+    </script>
     <script>
       $('.todo_delete').on('click', function() {
         const taskName = $(this).data("delete");

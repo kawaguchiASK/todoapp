@@ -1,18 +1,22 @@
+//ルーティングを作成する場所
+
 var express = require("express");
-const items = require("../../src/items");
+const tasks = require("../../src/tasks.js");
 
 var router = express.Router();
 
+
 /* 商品一覧を取得するルーティング */
-router.get("/items", function (req, res, next) {
-  const itemsList = items.getListItem();
-  res.send(itemsList);
+router.post("/tasks", async function (req, res, next) { //req,res,nextの処理がされる
+  console.log("1");
+  const postTasks = await tasks.postTasks(req.body);
+  res.send(postTasks);
 });
 
 /*１件の商品情報を取得するルーティング */
-router.get("/items/:id", function (req, res, next) {
-  const item = items.getItem(req.params.id);
-  res.send(item);
-});
+// router.get("/tasks", async function (req, res, next) {
+//   const getTasks = await tasks.getTasks(); //getTasksとは？ってこと あとこの（）ないと表示されんかった
+//   res.send(getTasks); //これを送る taskに
+//   });
 
 module.exports = router;
