@@ -425,20 +425,19 @@
     </script>
     <script src="../javascripts/index.js"></script>
     <script>
-      $("#create-task").on("click", async function () {
-        console.log(2);
+     $("#create-task").on("click", async function () {
+       console.log(1)
         const data = {
           taskName: $("input[name=task]").val(),
           deadline: $("input[name=deadline]").val(),
-          category: $("select[name=category]").val(), //ここ
+          category: $("select[name=category]").val(), //val()で取得することができる
         };
-        console.log(3)
-        //API実行
-        const response = await httpPost( //多分ここに問題
+        console.log(2)
+        const response = await httpPost(
           "//" + window.location.host + "/api/tasks",
           data
         );
-        console.log(4);
+        console.log(data)
         
       //画面reload
       //  window.location.reload();

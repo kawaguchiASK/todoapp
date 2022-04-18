@@ -14,6 +14,7 @@ const httpGet = async function (url) {
 const httpPost = async function (url, data) {
   console.log(url);
   console.log(data);
+  console.log(4)
   try {
     const response = await fetch (url, {
       method: "POST", // POST
@@ -22,6 +23,7 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
+    console.log(5)
     return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);

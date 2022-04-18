@@ -9,7 +9,7 @@ var router = express.Router();
 /* 商品一覧を取得するルーティング */
 router.post("/tasks", async function (req, res, next) { //req,res,nextの処理がされる
   console.log("1");
-  const postTasks = await tasks.postTasks(req.body);
+  const postTasks = await tasks.postTasks(req.body); //データベースと接続する処理 リクエストデータの値をここでとってきてる
   res.send(postTasks);
 });
 
