@@ -443,6 +443,27 @@
       //  window.location.reload();
       });
 
+
+      // 一覧取得
+      $(async function () {
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks"
+        );
+        console.log(response);
+
+        const list = response.map((item) => {
+          return `          
+          <li>
+            <span>${item.tesk_name}</span>
+            <span>${item.deadline}</span>
+            <span><buttom id="update_button" data-id=${item.id} >更新</buttom></span>
+            <span><buttom id="delete_button" data-id=${item.id} data-delete=${item.task_name} >削除</buttom></span>
+          </li>`;
+        });
+
+        $("ul#items").append(list);
+      });
+
       
     </script>
     <script>
