@@ -14,9 +14,9 @@ router.post("/tasks", async function (req, res, next) { //req,res,nextの処理�
 });
 
 /*１件の商品情報を取得するルーティング */
-// router.get("/tasks", async function (req, res, next) {
-//   const getTasks = await tasks.getTasks(); //getTasksとは？ってこと あとこの（）ないと表示されんかった
-//   res.send(getTasks); //これを送る taskに
-//   });
+router.get("/tasks", async function (req, res, next) {
+  const getTasks = await tasks.getTasks(); //getTasksとは？ってこと あとこの（）ないと表示されんかった
+  res.send(getTasks); //これを送る taskに
+  });
 
 module.exports = router;
