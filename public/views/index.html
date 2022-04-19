@@ -224,9 +224,9 @@
       // 一覧取得
         const response = await httpGet(
           "//" + window.location.host + "/api/tasks"
-        );-
+        );
 
-        console.log("get444");
+        console.log("get666");
 
         const list = response.map((item) => {
           return `
@@ -266,51 +266,57 @@
           </li>`;
         });
 
+        console.log("get777");
+
         $("ul#task-list").append(list);
+        console.log("get888");
         console.log(response)
       });
     </script>
     <script> 
-      $(document).on("click", "#update-button", async function(){
-        console.log("up111");
-        // $("#update-form").show();
-        // const id = $(this).data("id");
-        const response = await httpGet(
-          "//" + window.location.host + `/api/tasks/${id}`
-        );
-        console.log("up222");
+      // $(document).on("click", "#update-button", async function(){
+      //   console.log("up111");
+      //   // $("#update-form").show();
+      //   // const id = $(this).data("id");
+      //   const response = await httpGet(
+      //     "//" + window.location.host + `/api/tasks/${id}`
+      //   );
+      //   console.log("up222");
 
-        const date = new Date(response[0].deadline);
-        const year = date.getFullYear();
-        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-        const day = ("0" + date.getDate()).slice(-2);
-        const deadlineVal = `${year}-${month}-${day}`;
+      //   const date = new Date(response[0].deadline);
+      //   const year = date.getFullYear();
+      //   const month = ("0" + (date.getMonth() + 1)).slice(-2);
+      //   const day = ("0" + date.getDate()).slice(-2);
+      //   const deadlineVal = `${year}-${month}-${day}`;
 
         
-        console.log("up333");
-        $("#update-form input[name=id]").val(response[0].id);
-        $("#update-form input[name=task]").val(response[0].task_name);
-        $("#update-form input[name=deadline]").val(deadlineVal);
-        $("#update-form select[name=category]").val(response[0].category_id);
-        $("#update-form select[name=status]").val(response[0].task_status);
+      //   console.log("up333");
+      //   $("#update-form input[name=id]").val(response[0].id);
+      //   $("#update-form input[name=task]").val(response[0].task_name);
+      //   $("#update-form input[name=deadline]").val(deadlineVal);
+      //   $("#update-form select[name=category]").val(response[0].category_id);
+      //   $("#update-form select[name=status]").val(response[0].task_status);
         
-      });
+      // });
     </script>
     <script> 
       $("#create-task").on("click", async function () {
+        console.log("posttttt")
         const data = {
           taskName: $("input[name=task]").val(),
           deadline: $("input[name=deadline]").val(),
           category: $("select[name=category]").val(), //val()で取得することができる
         };
+        console.log("poost")
         const response = await httpPost(
           "//" + window.location.host + "/api/tasks",
           data
         );
+        console.log("postot")
         console.log(response)
         
       //画面reload
-      //  window.location.reload();
+       window.location.reload();
       }); 
     </script>
     
