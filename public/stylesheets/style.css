@@ -157,7 +157,7 @@ ul{
   text-decoration: underline #93C47D;
   cursor: pointer;
 }
-#items li{
+#task-list li{
   position: relative;
 }
 input[type=checkbox] {

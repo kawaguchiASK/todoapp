@@ -1,9 +1,11 @@
 // 取得用API実行メソッド
 const httpGet = async function (url) {
+  console.log("get444")
   try {
     const response = await fetch(url, {
       method: "GET", // GET
     });
+    console.log("get555")
     return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
@@ -14,7 +16,6 @@ const httpGet = async function (url) {
 const httpPost = async function (url, data) {
   console.log(url);
   console.log(data);
-  console.log(4)
   try {
     const response = await fetch (url, {
       method: "POST", // POST
@@ -23,7 +24,6 @@ const httpPost = async function (url, data) {
       },
       body: JSON.stringify(data),
     });
-    console.log(5)
     return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
@@ -58,27 +58,3 @@ const httpDelete = async function (url) {
     console.log(err);
   }
 };
-
-
-
-
-
-// //登録ボタン押したとき
-// $("#create-task").on("click", async function() { //async function
-//   //request data SHUTOKUsareru by form
-//   const requestData = {  //requestDataを定義する
-//     taskName: $("#create-form input[name=task]").val(),
-//     deadline: $("#create-form input[name=deadline").val(),
-//     category: $("#create-form select[name=category").val(),
-//   };
-
-//   //新規登録APIを実行
-//   const response = await httpPost( 
-//     "//" + window.location.host + "/api/tasks",
-//     requestData
-//   );
-
-//   //画面reload リロードするとエラーが発生する
-//   window.location.reload();
-// });
-
