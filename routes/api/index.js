@@ -22,8 +22,17 @@ router.get("/tasks", async function (req, res, next) {
 
 router.get("/tasks/:id", async function(req, res, next){
   const getTasksId = await tasks.getTasksId(req.params.id);
-  console.log(12345)
   res.send(getTasksId);
+});
+
+router.patch("/tasks/:id", async function(req, res, next){
+  const patchTasksId = await tasks.patchTasksId(req.params.id, req.body); //DBのレコードを特定するためのid req.bodyはフォームの値が格納
+  res.send(patchTasksId);
+});
+
+router.delete("/tasks:id", async function (req, res, next){
+  const deleteTasksId = await tasks.deleteTasksId(req.params.id);
+  res.send(deleteTasksId);
 });
 
 module.exports = router;

@@ -113,7 +113,7 @@
           <h5 class="modal-title" id="taskAddLabel">タスク登録</h5>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body create-form" id="create-form">
           <form action="">
             <div class="form-group">
               <h3>タスク</h3>
@@ -150,11 +150,11 @@
               <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body update-form" id="update-form">
-              <form action="">
-                <input type="hidden" name="id">
+              <form>
+                <input type="hidden" name="id" />
                 <div class="form-group">
                   <h3>タスク</h3>
-                  <input type="text" class="form-control" name="task" id="name">
+                  <input type="text" class="form-control" name="task" id="task">
                 </div>
                 <div class="form-group">
                   <h3>期限</h3>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="form-group">
                   <h3>ステータス</h3>
-                  <select name="taskStatus" class="form-control" id="task_status"> 
+                  <select name="status" class="form-control" id="task_status"> 
                     <option value="1">完了</option>
                     <option value="2">作業中</option>
                     <option value="3">未実施</option>
@@ -245,7 +245,7 @@
                     </svg></span></div>
                   </div>
                   </div>
-                    <div class="col-2 todo_update todo_button" id="update_button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
                       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
                         <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
                           <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
@@ -253,7 +253,7 @@
                         </g>
                       </svg>   
                     </div>
-                    <div class="col-2 todo_delete todo_button" id="delete_button" data-id=${item.id} data-delete=${item.task_name}>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
                         <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
                       </svg>
@@ -273,37 +273,12 @@
         console.log(response)
       });
 
-      $(document).on("click", "#update-task", async function(){
-        console.log("up111");
-        const id = $(this).data("id")
-        const response = await httpGet(
-          "//" + window.location.host + `/api/tasks/${id}`
-        );
-        
-        console.log(response);
-
-        //日付けを xxxx－xx－xxに変換
-        const date = new Date(response[0].deadline);
-        const year = date.getFullYear();
-        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-        const day = ("0" + date.getDate()).slice(-2);
-        const deadlineVal = `${year}-${month}-${day}`;
-        
-
-        $("#update-form input[name=id]").val(response[0].id);//responseがうまく対応しないな
-        $("#update-form input[name=task]").val(response[0].task_name);
-        $("#update-form input[name=deadline]").val(deadlineVal);
-        $("#update-form select[name=category]").val(response[0].category_id);
-        $("#update-form select[name=status]").val(response[0].task_status);
-        console.log("up333");
-        
-      });
       $("#create-task").on("click", async function () {
         console.log("posttttt")
         const data = {
-          taskName: $("input[name=task]").val(),
-          deadline: $("input[name=deadline]").val(),
-          category: $("select[name=category]").val(), //val()で取得することができる
+          taskName: $("#create-form input[name=task]").val(),
+          deadline: $("#create-form input[name=deadline]").val(),
+          category: $("#create-form select[name=category]").val(), //val()で取得することができる
         };
         console.log("poost")
         const response = await httpPost(
@@ -316,13 +291,80 @@
       //画面reload
       //  window.location.reload();
       }); 
+
+
+      // $(document).on('click', '【セレクタ】', function () →documentオブジェクトを活用することで、HTML要素へ簡単にアクセス
+      $(document).on("click", "#update-button", async function(){
+         //「ドキュメント」をクリックすることで＃アプデボタンが起動するってわけか？
+         //「更新ボタン」（タスクのやつ）増えるから、(document)に
+        
+        console.log("up111");
+
+        const id = $(this).data("id"); //☆ 更新するId値を特定するためにid="update-button"（更新ボタン）のdata属性の値を取得
+        const response = await httpGet(
+          "//" + window.location.host + `/api/tasks/${id}`
+        );
+        
+        console.log("up222"); //ここまで一応おｋ
+        console.log(response); //でもこれが取得できてない
+
+        //日付けを xxxx－xx－xxに変換 日付けフォームに日付けデータをセットするための処理
+        const date = new Date(response[0].deadline); //☆ 現在の日付
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2);
+        const day = ("0" + date.getDate()).slice(-2);
+        const deadlineVal = `${year}-${month}-${day}`;
+        
+        $("#update-form input[name=id]").val(response[0].id); //☆ responseがうまく対応しないな
+        $("#update-form input[name=task]").val(response[0].task_name);
+        $("#update-form input[name=deadline]").val(deadlineVal);
+        $("#update-form select[name=category]").val(response[0].category_id);
+        $("#update-form select[name=status]").val(response[0].task_status);
+        console.log("up333");
+        
+      });
+
+
+
+      $("#update-task").on("click", async function(){
+        console.log("patch111")
+        const id = $("#update-form input[name=id]").val();
+        
+        console.log("patch222")
+
+        const requestData = {
+          taskName: $("#update-form input[name=task]").val(),
+          deadline: $("#update-form input[name=deadline]").val(),
+          category: $("#update-form select[name=category]").val(),
+          status: $("#update-form select[name=status]").val(),
+        };
+        
+
+        const response = await httpUpdate(
+          "//" + window.location.host + `/api/tasks/${id}`,
+          requestData
+        );
+        
+        console.log("patch333")
+
+        // window.location.reload();
+      });
     </script>
     
 
     <script>
-      $('.todo_delete').on('click', function() {
+      $(document).on("click", "#delete-button", async function(){
         const taskName = $(this).data("delete");
-        confirm("下記のタスクを削除しますか？"); //\n  ${taskName}
+        if(confirm(`下記のタスクを削除しますか？\n  ${taskName}`)); 
+        const id = $(this).data("id");
+
+        // deleteAPI 実行
+        const response = await httpDelete(
+          "//" + window.location.host + `/api/tasks/${id}`
+        );
+
+        window.location.reload();
+
       });
 
       $(".openbtn").click(function () {
