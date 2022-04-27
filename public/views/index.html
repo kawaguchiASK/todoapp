@@ -288,6 +288,7 @@
     <script src="../javascripts/index.js"></script>
 
     <script>
+
       $(async function () {   
       console.log("get333")
       // 一覧取得
@@ -311,14 +312,16 @@
                   <div class="todo_content_flex">
                     <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
                     <div class="deadline" name="deadline">${item.deadline_date}
+                      
                       <div class="check_star">
-                        <input type="checkbox" id="star_favorited${item.id}">
+                        <input type="checkbox" id="star_favorited${item.id}" class="task_importance task_importance_${item.importance}" name="importance" data-id=${item.id}">
                         <label for="star_favorited${item.id}" class="favorited" data-id=${item.id}>
                             <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
                               <path class="star-fill" id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
                             </svg>
                         </label>
                       </div>
+
                     </div>
                   </div>
                   </div>
@@ -352,6 +355,8 @@
         $("ul#task-list").append(list);
         
         $(".task_conplete_check_1").attr('checked',true);
+        $(".task_importance_1").attr('checked',true);
+
         
         const date = new Date(response[0].deadline); //☆ 現在の日付を設定
 
@@ -366,16 +371,15 @@
         console.log("get888");
         console.log(response)
       });
-
+      
       
 
       $("#create-task").on("click", async function () {
         console.log("posttttt")
-        const data = {
+        const data = { //ここで定義
           taskName: $("#create-form input[name=task]").val(),
           deadline: $("#create-form input[name=deadline]").val(),
           category: $("#create-form select[name=category]").val(), //val()で取得することができる
-          
         };
         console.log("poost")
         const response = await httpPost(
@@ -388,6 +392,7 @@
       //画面reload
        window.location.reload();
       }); 
+
 
       // $(document).on('click', '【セレクタ】', function () →documentオブジェクトを活用することで、HTML要素へ簡単にアクセス
       $(document).on("click", "#update-button", async function(){
@@ -943,6 +948,7 @@
         const response = await httpGet(
           `//` + window.location.host + `/api/tasks/chk/${id}`
         );
+        console.log(response)
 
         if(this.checked){ //thisにするとできた
           const requestData = {status: 1};
@@ -970,7 +976,44 @@
         
         window.location.reload();
       });
+      
+      $(document).on("click", `.task_importance`, async function(){
+        const id = $(this).data("id");
+        console.log(id)
 
+        const response = await httpGet(
+          `//` + window.location.host + `/api/tasks/fav/${id}`
+        );
+        console.log(response)
+        // importance.val(response[0].task_importance);
+
+        if(this.checked){ //thisにするとできた
+          const requestData = {importance: 1};
+          
+          console.log(requestData)
+          const response = await httpUpdate(
+            `//` + window.location.host + `/api/tasks/fav/${id}`,
+            requestData            
+          );
+            
+
+        }else{
+          const requestData = {importance: 2};
+        
+          console.log(requestData)
+          const response = await httpUpdate(
+            `//` + window.location.host + `/api/tasks/fav/${id}`,
+            requestData
+        );
+        }
+
+        console.log("カラチェン5")
+
+        
+        window.location.reload();
+      });
+
+      
 
       // $(document.task_conplete_check, function(){
           

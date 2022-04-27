@@ -83,6 +83,15 @@ router.get("/tasks/chk/:id", async function(req, res, next){
   res.send(getTasksChk);
 });
 
+router.patch("/tasks/fav/:id", async function(req, res, next){
+  const patchTasksFav = await tasks.patchTasksFav(req.params.id, req.body);
+  res.send(patchTasksFav);
+});
+
+router.get("/tasks/fav/:id", async function(req, res, next){
+  const getTasksFav = await tasks.getTasksFav(req.params.id);
+  res.send(getTasksFav);
+});
 
 router.delete("/tasks/:id", async function (req, res, next){ // 削除するDBのレコードを特定するためのid
   const deleteTasksId = await tasks.deleteTasksId(req.params.id);
