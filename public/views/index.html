@@ -33,18 +33,18 @@
     <nav id="g-nav">
       <div class="sidemenu">
         <ul>
-          <li><p>To Do リスト</p></li>
+          <li><p class="cur" id="todo_todolist">To Do リスト</p></li>
           <li><p>カテゴリー</p>
             <div  class="sidemenu_cate">
               <ul>
-                <li><p>生活</p></li>
-                <li><p>勉強</p></li>
-                <li><p>仕事</p></li>
-                <li><p>趣味</p></li>
+                <li><p class="cur" id="todo_life">生活</p></li>
+                <li><p class="cur" id="todo_study">勉強</p></li>
+                <li><p class="cur" id="todo_work">仕事</p></li>
+                <li><p class="cur" id="todo_hobby">趣味</p></li>
               </ul>
             </div>
           </li>
-          <li><p>完了タスク</p></li>
+          <li><p class="cur" id="todo_cleared">完了タスク</p></li>
           <li><p>重要タスク</p></li>
           <li><p>カレンダー</p></li>
         </ul>
@@ -56,17 +56,61 @@
 
       <div>
         <div class="button_task">
-          <button type="button" class="btn btn-primary btn-outline-primary" data-toggle="modal" data-target="#taskAddModal"><h3>+</h3></button>
+          <button type="button" class="btn btn-primary btn-outline-primary" data-toggle="modal" data-target="#taskAddModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 36 36">
+            <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+              <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+              <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+            </g>
+          </svg></button>
         </div>
-        <div class="todo_title">          
+        <div class="todo_title" id="todo_title">          
        <h2>To do リスト</h2>
-       <p>今日のタスクを見る</p>
+       <p id="todo_today">今日のタスクを見る</p>
         </div>
 
-        <ul id="task-list">
-          
-        </ul>
-      
+        <form action="" method="post">
+          <ul id="task-list">
+            
+            <!-- <li>            
+              <div class="check_position">
+                <input type="checkbox" id="task_complete${item.id}" name="task_complete" value="">
+                <label for="task_complete${item.id}" class="checkbox" id="checkbox${item.task_status}"></label>
+              </div>
+              <div class="todo">
+                <div class="row">
+                  <div class="col-8 todo_content">
+                    <div class="category_color" id="category_${item.category_id}" name=”category”></div>
+                    <div class="todo_content_flex">
+                      <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                      <div class="deadline" name="deadline">${item.deadline_date}
+                        <div class="check_star">
+                              <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                                <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                              </svg>
+                          </div>
+                      </div>
+                    </div>
+                    </div>
+                      <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                          <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                            <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                            <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          </g>
+                        </svg>   
+                      </div>
+                      <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                          <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                        </svg>
+                      </div>
+                </div>        
+              </div>
+            </li> -->
+            <span ></span>
+            
+          </ul>
+        </form>
 
       
 
@@ -78,28 +122,45 @@
             <h5 class="modal-title" id="taskAddLabel">タスク登録</h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div class="modal-change">
-              <h3>カテゴリーの色を変更する</h3>
-              <ul>
-                <li>
-                  <div class="category_color_change orange"></div>
-                </li>
-                <li>
-                  <div class="category_color_change green"></div>
-                </li>
-                <li>
-                  <div class="category_color_change blue"></div>
-                </li>
-                <li>
-                  <div class="category_color_change red"></div>
-                </li>
-              </ul>
-            </div>
+          <div class="modal-body color-form" id="color-form">
+            <form action="">
+                <h3>カテゴリーの色を変更する</h3>
+                <input type="hidden" name="id" />
+                <div class="form-group">
+                  <ul>
+                    <li>
+                      <input type="radio" name="category" id="category_id_cg1" value="1"><label for="category_id_cg1">
+                        <div class="category_color_change orange"></div>
+                      </label>
+                    </li>
+                    <li>
+                      <input type="radio" name="category" id="category_id_cg2"  value="2"><label for="category_id_cg2">
+                        <div class="category_color_change green"></div>
+                      </label>
+                    </li>
+                    <li>
+                      <input type="radio" name="category" id="category_id_cg3"  value="3"><label for="category_id_cg3">
+                        <div class="category_color_change blue"></div>
+                      </label>
+                    </li>
+                    <li>
+                      <input type="radio" name="category" id="category_id_cg4"  value="4"><label for="category_id_cg4">
+                        <div class="category_color_change red"></div>
+                      </label>
+                    </li>
+                  </ul>
+                  <!-- <select name="category" id="category_id_cg" class="form-control">
+                    <option value="1">オレンジ<div class="category_color_change orange"></div></option>
+                    <option value="2">グリーン<div class="category_color_change green"></div></option>
+                    <option value="3">ブルー<div class="category_color_change blue"></div></option>
+                    <option value="4">れｄｄｐ<div class="category_color_change red"></div></option>
+                  </select> -->
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-            <button type="button" class="btn btn-primary btn-add">登録</button>
+            <button type="button" class="btn btn-primary btn-add" data-dismiss="modal" id="update-category">登録</button>
           </div>
         </div>
       </div>
@@ -216,6 +277,14 @@
       myInput.focus()
     })
     </script>
+    <script>
+      
+    // $(".check_star").click(function (){
+    //   console.log("star111")
+    //   $("#Icon_ionic-ios-star").toggleClass("fill");
+    // });
+
+    </script>
     <script src="../javascripts/index.js"></script>
 
     <script>
@@ -232,17 +301,25 @@
           return `
           <li>            
             <div class="check_position">
-              <input  type="checkbox" id="task_complete5" name="task_complete" value="">
-            <label for="task_complete5" class="checkbox"></label>
-            </div><div class="todo">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
               <div class="row">
                 <div class="col-8 todo_content">
-                  <div class="category_color green" name=”category”></div>
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
                   <div class="todo_content_flex">
                     <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
-                    <div class="deadline" name="deadline">${item.deadline}<span><svg xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
-                      <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
-                    </svg></span></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                      <div class="check_star">
+                        <input type="checkbox" id="star_favorited${item.id}">
+                        <label for="star_favorited${item.id}" class="favorited" data-id=${item.id}>
+                            <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                              <path class="star-fill" id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                            </svg>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                   </div>
                     <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
@@ -253,25 +330,44 @@
                         </g>
                       </svg>   
                     </div>
-                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
                       <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
                         <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
                       </svg>
                     </div>
               </div>        
             </div>
+            <!-- 
             <span class="srt_hndl">
               <div class="srt_hndl_line"><span></span><span></span></div>
-            </span>
+            </span> 
+            -->
           </li>`;
+
+          
         });
 
         console.log("get777");
 
         $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        
+        const date = new Date(response[0].deadline); //☆ 現在の日付を設定
+
+        if(deadline < date){
+          $("document.deadline").css({ 'color' : 'red'} );
+        };
+
+
+        
+        // console.log(`${task_status}`)
+
         console.log("get888");
         console.log(response)
       });
+
+      
 
       $("#create-task").on("click", async function () {
         console.log("posttttt")
@@ -279,6 +375,7 @@
           taskName: $("#create-form input[name=task]").val(),
           deadline: $("#create-form input[name=deadline]").val(),
           category: $("#create-form select[name=category]").val(), //val()で取得することができる
+          
         };
         console.log("poost")
         const response = await httpPost(
@@ -289,30 +386,27 @@
         console.log(response)
         
       //画面reload
-      //  window.location.reload();
+       window.location.reload();
       }); 
-
 
       // $(document).on('click', '【セレクタ】', function () →documentオブジェクトを活用することで、HTML要素へ簡単にアクセス
       $(document).on("click", "#update-button", async function(){
-         //「ドキュメント」をクリックすることで＃アプデボタンが起動するってわけか？
          //「更新ボタン」（タスクのやつ）増えるから、(document)に
-        
         console.log("up111");
 
         const id = $(this).data("id"); //☆ 更新するId値を特定するためにid="update-button"（更新ボタン）のdata属性の値を取得
         const response = await httpGet(
-          "//" + window.location.host + `/api/tasks/${id}`
+          `//` + window.location.host + `/api/tasks/${id}`
         );
         
         console.log("up222"); //ここまで一応おｋ
         console.log(response); //でもこれが取得できてない
-
+        
         //日付けを xxxx－xx－xxに変換 日付けフォームに日付けデータをセットするための処理
-        const date = new Date(response[0].deadline); //☆ 現在の日付
-        const year = date.getFullYear();
-        const month = ("0" + (date.getMonth() + 1)).slice(-2);
-        const day = ("0" + date.getDate()).slice(-2);
+        const date = new Date(response[0].deadline); //☆ 現在の日付を設定
+        const year = date.getFullYear(); //2022
+        const month = ("0" + (date.getMonth() + 1)).slice(-2); //右から二桁目まで 04
+        const day = ("0" + date.getDate()).slice(-2); //
         const deadlineVal = `${year}-${month}-${day}`;
         
         $("#update-form input[name=id]").val(response[0].id); //☆ responseがうまく対応しないな
@@ -324,13 +418,492 @@
         
       });
 
+      
+        
 
+      $(document).on("click","#todo_todolist", async function () {
+        console.log("td")
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        $(".todo_title h2").text(`To do リスト`);
+        $(".todo_title p").remove();
+        $("#todo_title").append(`<p id="todo_today">今日のタスクを見る</p>`);
+      });
+
+      $(document).on("click","#todo_today", async function(){
+        $("ul#task-list").empty();
+
+        console.log("todo111")
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/today", //ここできょうのたすくを取得でき
+        );
+        console.log(response)
+
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        $(".todo_title h2").text(`本日のタスク`);        
+        $(".todo_title p").remove();
+        $("#todo_title").append(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+
+      });
+
+
+      $("#todo_life").on("click", async function () {
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/life"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        $(".todo_title h2").text(`To do リスト 生活`);
+        $(".todo_title p").html(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+      });
+
+      $("#todo_study").on("click", async function () {
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/study"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" name="task_complete" value="">
+              <label for="task_complete${item.id}" class="checkbox" id="checkbox${item.task_status}"></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color" id="category_${item.category_id}" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+        });
+
+        $("ul#task-list").append(list);
+        $(".todo_title h2").text(`To do リスト 勉強`);
+        $(".todo_title p").html(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+      });
+      
+      $("#todo_work").on("click", async function () {
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/work"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        $(".todo_title h2").text(`To do リスト 仕事`);
+        $(".todo_title p").html(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+      });
+
+      $("#todo_hobby").on("click", async function () {
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/hobby"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        $(".todo_title h2").text(`To do リスト 趣味`);
+        $(".todo_title p").html(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+      }); 
+
+      $("#todo_cleared").on("click", async function () {
+        $("ul#task-list").empty();
+
+        const response = await httpGet(
+          "//" + window.location.host + "/api/tasks/cleared"
+        );
+        const list = response.map((item) => {
+          return `
+          <li>            
+            <div class="check_position">
+              <input type="checkbox" id="task_complete${item.id}" class="task_conplete_check task_conplete_check_${item.task_status}" name="task_complete" value="" data-id=${item.id} >
+              <label for="task_complete${item.id}" class="checkbox"  id="checkbox${item.task_status}" data-id=${item.id}></label>
+            </div>
+            <div class="todo">
+              <div class="row">
+                <div class="col-8 todo_content">
+                  <div class="category_color category_${item.category_id}" id="category_color" name=”category” data-toggle="modal" data-target="#colorModal" data-id=${item.id}></div>
+                  <div class="todo_content_flex">
+                    <div class="taskName" name="taskName"><h4>${item.task_name}</h4></div>
+                    <div class="deadline" name="deadline">${item.deadline_date}
+                    <div class="check_star" id="star" data-id=${item.id}>
+                      <svg id="star" xmlns="http://www.w3.org/2000/svg" width="18.231" height="17" viewBox="0 0 18.231 17">
+                        <path id="Icon_ionic-ios-star" data-name="Icon ionic-ios-star" d="M18.827,8.913H13.169L11.45,3.783a.623.623,0,0,0-1.169,0L8.562,8.913h-5.7a.617.617,0,0,0-.615.615.452.452,0,0,0,.012.1.591.591,0,0,0,.258.435l4.65,3.277L5.385,18.533a.617.617,0,0,0,.212.692.6.6,0,0,0,.346.15.754.754,0,0,0,.385-.138L10.865,16,15.4,19.237a.721.721,0,0,0,.385.138.553.553,0,0,0,.342-.15.61.61,0,0,0,.212-.692l-1.785-5.188,4.612-3.308.112-.1a.588.588,0,0,0-.454-1.027Z" transform="translate(-1.75 -2.875)" fill="none" stroke="#f6b26b" stroke-width="1"/>
+                      </svg>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    <div class="col-2 todo_update todo_button" id="update-button" data-id=${item.id}  data-toggle="modal" data-target="#taskUpdateModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="24" viewBox="0 0 36 36">
+                        <g id="Icon_feather-plus" data-name="Icon feather-plus" transform="translate(2 2)">
+                          <path id="パス_7" data-name="パス 7" d="M18,7.5v32" transform="translate(-2 -7.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                          <path id="パス_8" data-name="パス 8" d="M7.5,18h32" transform="translate(-7.5 -2)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+                        </g>
+                      </svg>   
+                    </div>
+                    <div class="col-2 todo_delete todo_button" id="delete-button" data-id=${item.id} data-delete=${item.task_name}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31.5" height="24" viewBox="0 0 31.5 36">
+                        <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt" d="M2.25,32.625A3.375,3.375,0,0,0,5.625,36h20.25a3.375,3.375,0,0,0,3.375-3.375V9h-27Zm19.125-18a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0Zm-6.75,0a1.125,1.125,0,0,1,2.25,0v15.75a1.125,1.125,0,0,1-2.25,0ZM30.375,2.25H21.938L21.277.935A1.688,1.688,0,0,0,19.765,0H11.728a1.668,1.668,0,0,0-1.5.935L9.563,2.25H1.125A1.125,1.125,0,0,0,0,3.375v2.25A1.125,1.125,0,0,0,1.125,6.75h29.25A1.125,1.125,0,0,0,31.5,5.625V3.375A1.125,1.125,0,0,0,30.375,2.25Z" fill="#fff"/>
+                      </svg>
+                    </div>
+              </div>        
+            </div>
+            <!-- 
+            <span class="srt_hndl">
+              <div class="srt_hndl_line"><span></span><span></span></div>
+            </span> 
+            -->
+          </li>`;
+
+          
+        });
+
+        console.log("get777");
+
+        $("ul#task-list").append(list);
+        
+        $(".task_conplete_check_1").attr('checked',true);
+        console.log("append")
+        $(".todo_title h2").text(`完了タスク`);
+        $(".todo_title p").html(`<p id="todo_todolist">To do リスト一覧を見る</p>`);
+      });
+
+      
+
+
+
+      
+
+      $(document).on("click", `#category_color`,async function(){
+        const id = $(this).data("id"); //☆ 更新するId値を特定するためにid="update-button"（更新ボタン）のdata属性の値を取得
+        console.log("カラチェン1")
+        const response = await httpGet(
+          `//` + window.location.host + `/api/tasks/cg/${id}`
+        );
+        console.log("カラチェン2")
+        $("#color-form input[name=id]").val(response[0].id);
+        $("#color-form input[name=category]:checked").val(response[0].category_id);
+        console.log(response)
+      });
+
+      $(`#update-category`).on("click", async function(){
+        console.log("カラチェン3")
+        //patch
+        const id = $("#color-form input[name=id]").val();
+        
+        console.log(id)
+        
+        const requestData = {
+          category: $("#color-form input[name=category]:checked").val(),
+        };
+
+        console.log(requestData)
+        console.log("カラチェン5")
+
+        const response = await httpUpdate(
+          `//` + window.location.host + `/api/tasks/cg/${id}`,
+          requestData
+        );
+        
+        console.log(requestData)
+        window.location.reload();
+      });
 
       $("#update-task").on("click", async function(){
         console.log("patch111")
         const id = $("#update-form input[name=id]").val();
         
-        console.log("patch222")
+        console.log(id)
 
         const requestData = {
           taskName: $("#update-form input[name=task]").val(),
@@ -343,28 +916,98 @@
         const response = await httpUpdate(
           "//" + window.location.host + `/api/tasks/${id}`,
           requestData
-        );
-        
-        console.log("patch333")
-
-        // window.location.reload();
+        );        
+        console.log(requestData)
+        window.location.reload();
       });
-    </script>
-    
 
-    <script>
+
+      // $(document).on("click", `.task_conplete_check`, async function(){
+      //   const id = $(this).data("id"); //☆ 更新するId値を特定するためにid="update-button"（更新ボタン）のdata属性の値を取得
+      //   console.log("check1")
+      //   const response = await httpGet(
+      //     `//` + window.location.host + `/api/tasks/chk/${id}`
+      //   );
+      //   console.log("カラチェン2")
+      //   $("#color-form input[name=id]").val(response[0].id);
+      //   $("#color-form input[name=category]").val(response[0].category_id);
+      //   console.log(response)
+      // });
+
+      $(document).on("click", `.task_conplete_check`, async function(){ //changeファンクションでも●
+        console.log("check11")
+        // window.alert('チェックされたよ！');
+        //patch
+        const id = $(this).data("id");
+        console.log(id)
+        const response = await httpGet(
+          `//` + window.location.host + `/api/tasks/chk/${id}`
+        );
+
+        if(this.checked){ //thisにするとできた
+          const requestData = {status: 1};
+          
+          console.log(requestData)
+          const response = await httpUpdate(
+            `//` + window.location.host + `/api/tasks/chk/${id}`,
+            requestData            
+          );
+            
+          console.log(response)
+
+        }else{
+          const requestData = {status: 2};
+        
+          console.log(requestData)
+          const response = await httpUpdate(
+            `//` + window.location.host + `/api/tasks/chk/${id}`,
+            requestData
+        );
+        }
+
+        console.log("カラチェン5")
+
+        
+        window.location.reload();
+      });
+
+
+      // $(document.task_conplete_check, function(){
+          
+      //     if(".task_conplete_check".checked){          
+      //       $(this.checkbox).addClass(".checkedtask");
+      //     }else{
+      //       $(this.checkbox).removeClass(".checkedtask");
+      //     };
+      // });    
+
+      // $(function() {
+      //   console.log($('body').html());
+      //   $('document input[type=checkbox]').prop('checked',true);
+      //   console.log("chkkk")
+      // });
+       
+
+      
       $(document).on("click", "#delete-button", async function(){
         const taskName = $(this).data("delete");
-        if(confirm(`下記のタスクを削除しますか？\n  ${taskName}`)); 
-        const id = $(this).data("id");
-
+        if(confirm(`下記のタスクを削除しますか？\n  ${taskName}`)){
+          const id = $(this).data("id"); //Id=タスクのナンバー、、
+          //ここから
+          console.log("del111")
         // deleteAPI 実行
-        const response = await httpDelete(
-          "//" + window.location.host + `/api/tasks/${id}`
+        const response = await httpDelete( //responseが指定されてないのでは？
+          "//" + window.location.host + `/api/tasks/${id}` //${id}=タスクのナンバー ex)3
         );
 
-        window.location.reload();
+        console.log("del333")
+        console.log(response)
 
+        window.location.reload();
+        }
+
+          
+             
       });
 
       $(".openbtn").click(function () {
@@ -373,13 +1016,35 @@
       
 
       </script> 
+
  <!-- Sortableの実装 -->
  <script>
  $( function() {
     $( '#task-list' ) . sortable( {
-        handle: '.srt_hndl',
+      // update: function(event,ui){
+      //   $('#4')
+        // var log = $(this).sortable("toArray");
+        // $("#log").text(log);
+      // }
+        // handle: '.srt_hndl',
     } );
 } );
+
+// if($_POST['#task-list']){
+//   $list = $_POST['#task-list'];
+
+//   $lists = explode(',', $result);
+//   $sql_sort='';
+//   $sort= 1;
+//   foreach($lists as $id){
+//     $sql_sort. = 'WHEN'.$id. 'THEN' .$sort;
+//     $sort++;
+//   }
+//   $sql = 'UPDATE t_tasks SET ートカラム名 = case IDカラム名'.$sql_sort.' END,';
+//     $stmt = $dbh->prepare($sql);
+//     $stmt->execute();
+// }
+
 
 $(".openbtn").click(function () {//ボタンがクリックされたら
   $(this).toggleClass('active');//ボタン自身に activeクラスを付与し
@@ -390,18 +1055,6 @@ $(".openbtn").click(function () {//ボタンがクリックされたら
 $("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
     $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
     $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
-});
-
-$('.deadline path').click(function (){
-  if(fill = 'none'){
-  $(this).css({
-        'fill': '#F6B26B' 
-  }
-  )}else{
-  $(this).css({
-        'fill': 'none'
-      });
-  }
 });
  </script>
   </body>

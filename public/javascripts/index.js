@@ -1,11 +1,9 @@
 // 取得用API実行メソッド
 const httpGet = async function (url) {
-  console.log("get444")
   try {
     const response = await fetch(url, {
       method: "GET", // GET
     });
-    console.log("get555")
     return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
@@ -17,7 +15,7 @@ const httpPost = async function (url, data) {
   console.log(url);
   console.log(data);
   try {
-    const response = await fetch (url, {
+    const response = await fetch(url, {
       method: "POST", // POST
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +27,6 @@ const httpPost = async function (url, data) {
     console.log(err);
   }
 };
-
 
 // 更新用API実行メソッド
 const httpUpdate = async function (url, data) {
@@ -49,10 +46,13 @@ const httpUpdate = async function (url, data) {
 
 // 削除用API実行メソッド
 const httpDelete = async function (url) {
+  console.log("del222")
   try {
     const response = await fetch(url, {
       method: "DELETE", // DELETE
     });
+    
+    console.log("del444")
     return response.json(); // JSON のレスポンスを JavaScript のオブジェクトに変換
   } catch (err) {
     console.log(err);
