@@ -18,38 +18,43 @@ router.post("/tasks", async function (req, res, next) { //req,res,nextの処理�
 router.get("/tasks", async function (req, res, next) {
   const getTasks = await tasks.getTasks(); //getTasksとは？ってこと あとこの（）ないと表示されんかった
   res.send(getTasks); //これを送る taskに
-  });
+});
 
 
 router.get("/tasks/today", async function (req, res, next) {
   const getTasksToday = await tasks.getTasksToday(); //getTasksとは？ってこと あとこの（）ないと表示されんかった
   res.send(getTasksToday); //これを送る taskに
-  });
+});
 
 router.get("/tasks/life", async function(req, res, next){
-const getTasksLife = await tasks.getTasksLife(req.params.id);
-res.send(getTasksLife);
+  const getTasksLife = await tasks.getTasksLife(req.params.id);
+  res.send(getTasksLife);
 });
 
 router.get("/tasks/study", async function(req, res, next){
   const getTasksStudy = await tasks.getTasksStudy(req.params.id);
   res.send(getTasksStudy);
-  });
+});
 
 router.get("/tasks/work", async function(req, res, next){
   const getTasksWork = await tasks.getTasksWork(req.params.id);
   res.send(getTasksWork);
-  });
+});
   
 router.get("/tasks/hobby", async function(req, res, next){
   const getTasksHobby = await tasks.getTasksHobby(req.params.id);
   res.send(getTasksHobby);
-  });
+});
   
 router.get("/tasks/cleared", async function(req, res, next){
   const getTasksClr = await tasks.getTasksClr(req.params.id);
   res.send(getTasksClr);
-  });
+});
+
+router.get("/tasks/fav", async function(req, res, next){
+  const getTasksIpt = await tasks.getTasksIpt(req.params.id);
+  res.send(getTasksIpt);
+});
 
 router.get("/tasks/:id", async function(req, res, next){
   const getTasksId = await tasks.getTasksId(req.params.id);

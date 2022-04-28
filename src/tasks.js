@@ -80,7 +80,7 @@ getTasksStudy = async function() {
   try { 
       connection = await mysql.createConnection(config.dbSetting); //多分ここに問題 コネクションがうまくいってない
       const sql =
-              "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 2 order by task_status desc task_importance asc;";
+              "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 2 order by task_status desc, task_importance asc;";
             const [rows, fields] = await connection.query(sql);
             return rows;  //return rows;
   }   catch (e) {
@@ -96,7 +96,7 @@ getTasksWork = async function() {
   try { 
       connection = await mysql.createConnection(config.dbSetting); //多分ここに問題 コネクションがうまくいってない
       const sql =
-      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 3 order by task_status desc task_importance asc;";
+      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 3 order by task_status desc, task_importance asc;";
             const [rows, fields] = await connection.query(sql);
             return rows;  //return rows;
   }   catch (e) {
@@ -112,7 +112,7 @@ getTasksHobby = async function() {
   try { 
       connection = await mysql.createConnection(config.dbSetting); //多分ここに問題 コネクションがうまくいってない
       const sql =
-      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 4 order by task_status desc task_importance asc;";
+      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE category_id = 4 order by task_status desc, task_importance asc;";
             const [rows, fields] = await connection.query(sql);
             return rows;  //return rows;
   }   catch (e) {
@@ -128,7 +128,23 @@ getTasksClr = async function() {
   try { 
       connection = await mysql.createConnection(config.dbSetting); //多分ここに問題 コネクションがうまくいってない
       const sql =
-      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE task_status = 2 order by task_status desc task_importance asc;";
+      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE task_status = 1 order by task_status desc, task_importance asc;";
+            const [rows, fields] = await connection.query(sql);
+            return rows;  //return rows;
+  }   catch (e) {
+      console.log(e); //errのとき にエラーを表示する
+  }   finally{
+      connection.end(); 
+  }
+};
+
+
+getTasksIpt = async function() {
+  let connection = null;
+  try { 
+      connection = await mysql.createConnection(config.dbSetting); //多分ここに問題 コネクションがうまくいってない
+      const sql =
+      "SELECT t_tasks.id, t_tasks.category_id, m_category2.category_name, t_tasks.task_name, DATE_FORMAT(t_tasks.deadline, '%Y-%m-%d') AS deadline_date, t_tasks.task_status, t_tasks.created_at, t_tasks.updated_at, t_tasks.task_importance FROM t_tasks LEFT JOIN m_category2 ON t_tasks.category_id = m_category2.id WHERE task_importance = 1 order by task_status desc, task_importance asc;";
             const [rows, fields] = await connection.query(sql);
             return rows;  //return rows;
   }   catch (e) {
@@ -337,6 +353,7 @@ exports.getTasksStudy = getTasksStudy;
 exports.getTasksWork = getTasksWork;
 exports.getTasksHobby = getTasksHobby;
 exports.getTasksClr = getTasksClr;
+exports.getTasksIpt = getTasksIpt;
 exports.getTasksId = getTasksId;
 exports.getTasksCgId = getTasksCgId;
 exports.patchTasksId = patchTasksId;
